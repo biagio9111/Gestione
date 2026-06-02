@@ -110,6 +110,16 @@ document
 .innerText =
 "📅 Oggi: " + oggiISO();
 
+const campoData =
+document.getElementById("presData");
+
+if(campoData){
+
+ campoData.value =
+ oggiISO();
+
+}
+
 /* =========================
    LOGIN
 ========================= */
@@ -686,6 +696,10 @@ document
  document.getElementById(
  "presOperaio"
  ).value;
+ const dataGiornata =
+ document.getElementById(
+ "presData"
+ ).value || oggiISO();
 
  const op =
  operai[idOperaio];
@@ -762,12 +776,12 @@ document
  set(
 
   ref(
-   db,
-   "presenze/" +
-   oggiISO() +
-   "/" +
-   idOperaio
-  ),
+ db,
+ "presenze/" +
+ dataGiornata +
+ "/" +
+ idOperaio
+),
 
   dati
 
