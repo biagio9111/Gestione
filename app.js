@@ -131,11 +131,10 @@ async function(){
 
  try{
 
-   await
-   signInWithEmailAndPassword(
-     auth,
-     email,
-     password
+   await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
    );
 
  }catch(e){
@@ -174,18 +173,17 @@ onAuthStateChanged(
 
    if(user){
 
-     showScreen(
-     "screenHome"
-     );
+      showScreen(
+      "screenHome"
+      );
 
-     caricaRealtime();
+      caricaRealtime();
 
-   }
-   else{
+   }else{
 
-     showScreen(
-     "screenLogin"
-     );
+      showScreen(
+      "screenLogin"
+      );
 
    }
 
@@ -198,15 +196,8 @@ onAuthStateChanged(
 
 function caricaRealtime(){
 
- /* OPERAI */
-
  onValue(
-
-  ref(
-   db,
-   "operai"
-  ),
-
+  ref(db,"operai"),
   function(snapshot){
 
    operai =
@@ -216,21 +207,10 @@ function caricaRealtime(){
 
    riempiSelectOperai();
 
-   riempiFiltroStorico();
-
-  }
-
- );
-
- /* FURGONI */
+  });
 
  onValue(
-
-  ref(
-   db,
-   "furgoni"
-  ),
-
+  ref(db,"furgoni"),
   function(snapshot){
 
    furgoni =
@@ -240,19 +220,10 @@ function caricaRealtime(){
 
    riempiSelectFurgoni();
 
-  }
-
- );
-
- /* CANTIERI */
+  });
 
  onValue(
-
-  ref(
-   db,
-   "cantieri"
-  ),
-
+  ref(db,"cantieri"),
   function(snapshot){
 
    cantieri =
@@ -262,14 +233,9 @@ function caricaRealtime(){
 
    riempiSelectCantieri();
 
-  }
-
- );
-
- /* PRESENZE */
+  });
 
  onValue(
-
   ref(
    db,
    "presenze/" +
@@ -283,9 +249,7 @@ function caricaRealtime(){
 
    renderPresenzeOggi();
 
-  }
-
- );
+  });
 
 }
 /* =========================
@@ -327,12 +291,6 @@ document
   dati
  );
 
- document.getElementById("opNome").value="";
- document.getElementById("opRuolo").value="";
- document.getElementById("opTelefono").value="";
- document.getElementById("opPaga").value="";
- document.getElementById("opTrasferta").value="";
-
 };
 
 function renderOperai(){
@@ -340,24 +298,10 @@ function renderOperai(){
  const box =
  document.getElementById("listaOperai");
 
- const cerca =
- document.getElementById("cercaOperaio")
- .value
- .toLowerCase();
-
- box.innerHTML="";
+ box.innerHTML = "";
 
  Object.entries(operai)
  .forEach(function([id,op]){
-
-   if(
-    cerca &&
-    !(op.nome || "")
-    .toLowerCase()
-    .includes(cerca)
-   ){
-    return;
-   }
 
    box.innerHTML += `
 
@@ -400,11 +344,6 @@ function renderOperai(){
  });
 
 }
-
-document
-.getElementById("cercaOperaio")
-.oninput =
-renderOperai;
 
 window.eliminaOperaio =
 function(id){
@@ -453,9 +392,6 @@ document
   dati
  );
 
- document.getElementById("furModello").value="";
- document.getElementById("furTarga").value="";
-
 };
 
 function renderFurgoni(){
@@ -463,23 +399,23 @@ function renderFurgoni(){
  const box =
  document.getElementById("listaFurgoni");
 
- box.innerHTML="";
+ box.innerHTML = "";
 
  Object.entries(furgoni)
- .forEach(function([id,fur]){
+ .forEach(function([id,f]){
 
    box.innerHTML += `
 
    <div class="card">
 
    <h3>
-   🚐 ${fur.modello}
+   🚐 ${f.modello}
    </h3>
 
    <small>
 
    Targa:
-   ${fur.targa}
+   ${f.targa}
 
    </small>
 
@@ -557,11 +493,7 @@ document
   dati
  );
 
- document.getElementById("cantNome").value="";
- document.getElementById("cantCliente").value="";
- document.getElementById("cantIndirizzo").value="";
- document.getElementById("cantTelefono").value="";
- document.getElementById("cantNote").value="";
+ alert("Cantiere salvato");
 
 };
 
@@ -570,7 +502,7 @@ function renderCantieri(){
  const box =
  document.getElementById("listaCantieri");
 
- box.innerHTML="";
+ box.innerHTML = "";
 
  Object.entries(cantieri)
  .forEach(function([id,c]){
@@ -646,30 +578,45 @@ function riempiSelectOperai(){
  const storicoOperaio =
  document.getElementById("storicoOperaio");
 
+ if(presOperaio)
  presOperaio.innerHTML = "";
 
+ if(presAutista)
  presAutista.innerHTML = "";
 
+ if(storicoOperaio)
  storicoOperaio.innerHTML =
  '<option value="">Tutti gli operai</option>';
 
  Object.entries(operai)
  .forEach(function([id,op]){
 
-   presOperaio.innerHTML +=
-   `<option value="${id}">
-      ${op.nome}
-    </option>`;
+   if(presOperaio){
 
-   presAutista.innerHTML +=
-   `<option value="${op.nome}">
-      ${op.nome}
-    </option>`;
+     presOperaio.innerHTML +=
+     `<option value="${id}">
+       ${op.nome}
+     </option>`;
 
-   storicoOperaio.innerHTML +=
-   `<option value="${op.nome}">
-      ${op.nome}
-    </option>`;
+   }
+
+   if(presAutista){
+
+     presAutista.innerHTML +=
+     `<option value="${op.nome}">
+       ${op.nome}
+     </option>`;
+
+   }
+
+   if(storicoOperaio){
+
+     storicoOperaio.innerHTML +=
+     `<option value="${op.nome}">
+       ${op.nome}
+     </option>`;
+
+   }
 
  });
 
@@ -684,15 +631,18 @@ function riempiSelectFurgoni(){
  const select =
  document.getElementById("presFurgone");
 
+ if(!select) return;
+
  select.innerHTML = "";
 
  Object.entries(furgoni)
  .forEach(function([id,f]){
 
    select.innerHTML +=
+
    `<option value="${f.modello}">
-      ${f.modello} (${f.targa})
-    </option>`;
+     ${f.modello} (${f.targa})
+   </option>`;
 
  });
 
@@ -707,15 +657,18 @@ function riempiSelectCantieri(){
  const select =
  document.getElementById("presCantiere");
 
+ if(!select) return;
+
  select.innerHTML = "";
 
  Object.entries(cantieri)
  .forEach(function([id,c]){
 
    select.innerHTML +=
+
    `<option value="${c.nome}">
       ${c.nome}
-    </option>`;
+   </option>`;
 
  });
 
@@ -730,51 +683,76 @@ document
 .onclick = function(){
 
  const idOperaio =
- document.getElementById("presOperaio").value;
+ document.getElementById(
+ "presOperaio"
+ ).value;
 
  const op =
  operai[idOperaio];
 
  if(!op){
-   alert("Seleziona operaio");
+
+   alert(
+   "Seleziona un operaio"
+   );
+
    return;
+
  }
 
  const dati = {
 
-   idOperaio:idOperaio,
-
-   nome:op.nome,
+   nome: op.nome,
 
    stato:
-   document.getElementById("presStato").value,
+   document.getElementById(
+   "presStato"
+   ).value,
 
    cantiere:
-   document.getElementById("presCantiere").value,
+   document.getElementById(
+   "presCantiere"
+   ).value,
 
    furgone:
-   document.getElementById("presFurgone").value,
+   document.getElementById(
+   "presFurgone"
+   ).value,
 
    autista:
-   document.getElementById("presAutista").value,
+   document.getElementById(
+   "presAutista"
+   ).value,
 
    checkIn:
-   document.getElementById("presIn").value,
+   document.getElementById(
+   "presIn"
+   ).value,
 
    checkOut:
-   document.getElementById("presOut").value,
+   document.getElementById(
+   "presOut"
+   ).value,
 
    trasferta:
-   document.getElementById("presTrasferta").checked,
+   document.getElementById(
+   "presTrasferta"
+   ).checked,
 
    dal:
-   document.getElementById("presDal").value,
+   document.getElementById(
+   "presDal"
+   ).value,
 
    al:
-   document.getElementById("presAl").value,
+   document.getElementById(
+   "presAl"
+   ).value,
 
    motivo:
-   document.getElementById("presMotivo").value,
+   document.getElementById(
+   "presMotivo"
+   ).value,
 
    pagaGiorno:
    op.pagaGiorno || 0
@@ -782,6 +760,7 @@ document
  };
 
  set(
+
   ref(
    db,
    "presenze/" +
@@ -789,10 +768,14 @@ document
    "/" +
    idOperaio
   ),
+
   dati
+
  );
 
- alert("Presenza salvata");
+ alert(
+ "Presenza salvata"
+ );
 
 };
 
@@ -803,9 +786,13 @@ function renderPresenzeOggi(){
  "listaPresenzeOggi"
  );
 
+ if(!box) return;
+
  box.innerHTML = "";
 
- Object.entries(presenzeOggi)
+ Object.entries(
+ presenzeOggi
+ )
  .forEach(function([id,p]){
 
    box.innerHTML += `
@@ -813,7 +800,9 @@ function renderPresenzeOggi(){
    <div class="card">
 
    <h3>
+
    👷 ${p.nome}
+
    </h3>
 
    <small>
@@ -822,22 +811,19 @@ function renderPresenzeOggi(){
    ${p.stato}<br>
 
    Cantiere:
-   ${p.cantiere || "-"}<br>
+   ${p.cantiere}<br>
 
    Furgone:
-   ${p.furgone || "-"}<br>
+   ${p.furgone}<br>
 
    Autista:
-   ${p.autista || "-"}<br>
+   ${p.autista}<br>
 
    Check-In:
-   ${p.checkIn || "-"}<br>
+   ${p.checkIn}<br>
 
    Check-Out:
-   ${p.checkOut || "-"}<br>
-
-   Motivo:
-   ${p.motivo || "-"}
+   ${p.checkOut}
 
    </small>
 
@@ -847,7 +833,7 @@ function renderPresenzeOggi(){
    class="btn-delete"
    onclick="eliminaPresenza('${id}')">
 
-   Elimina giornata
+   Elimina
 
    </button>
 
@@ -860,20 +846,22 @@ function renderPresenzeOggi(){
 }
 
 window.eliminaPresenza =
-function(idOperaio){
+function(id){
 
  if(confirm(
  "Eliminare giornata?"
  )){
 
    remove(
+
     ref(
-      db,
-      "presenze/" +
-      oggiISO() +
-      "/" +
-      idOperaio
+     db,
+     "presenze/" +
+     oggiISO() +
+     "/" +
+     id
     )
+
    );
 
  }
@@ -924,7 +912,7 @@ document
    "listaStorico"
    );
 
-   box.innerHTML="";
+   box.innerHTML = "";
 
    Object.entries(storico)
    .forEach(function([id,p]){
@@ -977,22 +965,12 @@ document
 
    });
 
-   if(
-    Object.keys(storico)
-    .length === 0
-   ){
-
-      box.innerHTML =
-      "<div class='card'>Nessun dato trovato</div>";
-
-   }
-
  });
 
 };
 
 /* =========================
-   RIEPILOGO COSTI
+   COSTI
 ========================= */
 
 document
@@ -1066,7 +1044,7 @@ document
              !riepilogo[nome]
             ){
 
-              riepilogo[nome] = 0;
+               riepilogo[nome] = 0;
 
             }
 
@@ -1124,35 +1102,3 @@ document
  });
 
 };
-
-/* =========================
-   FILTRO STORICO
-========================= */
-
-function riempiFiltroStorico(){
-
- const select =
- document.getElementById(
- "storicoOperaio"
- );
-
- if(!select) return;
-
- select.innerHTML =
-
- `<option value="">
-   Tutti gli operai
- </option>`;
-
- Object.entries(operai)
- .forEach(function([id,op]){
-
-   select.innerHTML +=
-
-   `<option value="${op.nome}">
-      ${op.nome}
-    </option>`;
-
- });
-
-}
