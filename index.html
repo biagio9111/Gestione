@@ -10,7 +10,9 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
+
 Gestione Cantiere
+
 </title>
 
 <link
@@ -21,7 +23,7 @@ href="style.css">
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <section
 id="screenLogin"
@@ -30,7 +32,9 @@ class="screen active">
 <div class="login-box">
 
 <h1>
+
 🏗️ GESTIONE CANTIERE
+
 </h1>
 
 <input
@@ -44,7 +48,9 @@ type="password"
 placeholder="Password">
 
 <button id="btnLogin">
+
 ACCEDI
+
 </button>
 
 <p id="loginErrore"></p>
@@ -53,7 +59,7 @@ ACCEDI
 
 </section>
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
 <section
 id="screenHome"
@@ -62,46 +68,68 @@ class="screen">
 <header>
 
 <h2>
+
 🏗️ Gestione Cantiere
+
 </h2>
 
 <button id="btnLogout">
+
 Esci
+
 </button>
 
 </header>
 
 <div class="menu">
 
-<button onclick="showScreen('screenOperai')">
+<button
+onclick="showScreen('screenOperai')">
+
 👷<br>
 OPERAI
+
 </button>
 
-<button onclick="showScreen('screenFurgoni')">
+<button
+onclick="showScreen('screenFurgoni')">
+
 🚐<br>
 FURGONI
+
 </button>
 
-<button onclick="showScreen('screenCantieri')">
+<button
+onclick="showScreen('screenCantieri')">
+
 🏗️<br>
 CANTIERI
+
 </button>
 
-<button onclick="showScreen('screenPresenze')">
+<button
+onclick="showScreen('screenPresenze')">
+
 📋<br>
 PRESENZE
+
 </button>
 
-<button onclick="showScreen('screenStorico')">
+<button
+onclick="showScreen('screenStorico')">
+
 📅<br>
 STORICO
+
 </button>
 
 <button
 onclick="showScreen('screenCosti')"
 class="wide">
-💰 RIEPILOGO COSTI
+
+💰<br>
+COSTI
+
 </button>
 
 </div>
@@ -110,7 +138,7 @@ class="wide">
 
 </section>
 
-<!-- ================= OPERAI ================= -->
+<!-- OPERAI -->
 
 <section
 id="screenOperai"
@@ -118,12 +146,17 @@ class="screen">
 
 <header>
 
-<button onclick="showScreen('screenHome')">
+<button
+onclick="showScreen('screenHome')">
+
 ←
+
 </button>
 
 <h2>
+
 👷 Operai
+
 </h2>
 
 </header>
@@ -157,7 +190,9 @@ type="number"
 placeholder="Trasferta €">
 
 <button id="btnSalvaOperaio">
+
 💾 SALVA OPERAIO
+
 </button>
 
 </div>
@@ -165,8 +200,7 @@ placeholder="Trasferta €">
 <div id="listaOperai"></div>
 
 </section>
-
-  <!-- ================= FURGONI ================= -->
+<!-- ================= FURGONI ================= -->
 
 <section
 id="screenFurgoni"
@@ -174,12 +208,17 @@ class="screen">
 
 <header>
 
-<button onclick="showScreen('screenHome')">
+<button
+onclick="showScreen('screenHome')">
+
 ←
+
 </button>
 
 <h2>
+
 🚐 Furgoni
+
 </h2>
 
 </header>
@@ -197,298 +236,18 @@ placeholder="Targa">
 <button
 id="btnSalvaFurgone">
 
-+ AGGIUNGI FURGONE
+💾 SALVA FURGONE
 
 </button>
 
 </div>
 
-<div id="listaFurgoni"></div>
-
-</section>
-
-<!-- ================= CANTIERI ================= -->
-
-<section
-id="screenCantieri"
-class="screen">
-
-<header>
-
-<button onclick="showScreen('screenHome')">
-←
-</button>
-
-<h2>
-🏗️ Cantieri
-</h2>
-
-</header>
-
-<div class="box">
-
-<input
-id="cantNome"
-placeholder="Nome cantiere">
-
-<input
-id="cantCliente"
-placeholder="Cliente">
-
-<input
-id="cantIndirizzo"
-placeholder="Indirizzo">
-
-<input
-id="cantTelefono"
-placeholder="Telefono cliente">
-
-<input
-id="cantNote"
-placeholder="Note">
-
-<button
-id="btnSalvaCantiere">
-
-💾 SALVA CANTIERE
-
-</button>
-
-</div>
-
-<div id="listaCantieri"></div>
-
-</section>
-
-<!-- ================= PRESENZE ================= -->
-
-<section
-id="screenPresenze"
-class="screen">
-
-<header>
-
-<button onclick="showScreen('screenHome')">
-←
-</button>
-
-<h2>
-📋 Presenze Oggi
-</h2>
-
-</header>
-
-<div class="box">
-
-<label>Operaio</label>
-
-<select id="presOperaio">
-</select>
-
-<label>Stato</label>
-
-<select id="presStato">
-
-<option value="Presente">
-Presente
-</option>
-
-<option value="Assente">
-Assente
-</option>
-
-<option value="Malattia">
-Malattia
-</option>
-
-<option value="Ferie">
-Ferie
-</option>
-
-</select>
-
-<label>Cantiere</label>
-
-<select id="presCantiere">
-</select>
-
-<label>Furgone</label>
-
-<select id="presFurgone">
-</select>
-
-<label>Autista</label>
-
-<select id="presAutista">
-</select>
-
-<label>Check-In</label>
-
-<input
-id="presIn"
-type="time">
-
-<label>Check-Out</label>
-
-<input
-id="presOut"
-type="time">
-
-<label>
-
-<input
-id="presTrasferta"
-type="checkbox">
-
-Trasferta
-
-</label>
-
-<label>Dal</label>
-
-<input
-id="presDal"
-type="date">
-
-<label>Al</label>
-
-<input
-id="presAl"
-type="date">
-
-<input
-id="presMotivo"
-placeholder="Motivo">
-
-<button
-id="btnSalvaPresenza">
-
-💾 SALVA PRESENZA
-
-</button>
-
-</div>
-
-<div id="listaPresenzeOggi">
-</div>
-
-</section>
-<!-- ================= STORICO ================= -->
-
-<section
-id="screenStorico"
-class="screen">
-
-<header>
-
-<button onclick="showScreen('screenHome')">
-←
-</button>
-
-<h2>
-📅 Storico
-</h2>
-
-</header>
-
-<div class="box">
-
-<label>Data</label>
-
-<input
-id="storicoData"
-type="date">
-
-<label>Operaio</label>
-
-<select id="storicoOperaio">
-
-<option value="">
-Tutti gli operai
-</option>
-
-</select>
-
-<button
-id="btnCaricaStorico">
-
-🔍 CARICA STORICO
-
-</button>
-
-</div>
-
-<div id="listaStorico">
+<div id="listaFurgoni">
 
 </div>
 
 </section>
 
-<!-- ================= COSTI ================= -->
-
-<section
-id="screenCosti"
-class="screen">
-
-<header>
-
-<button onclick="showScreen('screenHome')">
-←
-</button>
-
-<h2>
-💰 Riepilogo Costi
-</h2>
-
-</header>
-
-<div class="box">
-
-<label>Dal</label>
-
-<input
-id="costiDal"
-type="date">
-
-<label>Al</label>
-
-<input
-id="costiAl"
-type="date">
-
-<button
-id="btnCalcolaCosti">
-
-📊 CALCOLA COSTI
-
-</button>
-
-</div>
-
-<div id="listaCosti">
-
-</div>
-
-<div class="box">
-
-<h2 id="totaleCosti">
-
-Totale: €0.00
-
-</h2>
-
-</div>
-
-</section>
-
-<script
-type="module"
-src="app.js">
-</script>
-
-</body>
-
-</html>
 <!-- ================= CANTIERI ================= -->
 
 <section
@@ -548,3 +307,248 @@ id="btnSalvaCantiere">
 </div>
 
 </section>
+<!-- ================= PRESENZE ================= -->
+
+<section
+id="screenPresenze"
+class="screen">
+
+<header>
+
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+📋 Presenze
+
+</h2>
+
+</header>
+
+<div class="box">
+
+<label>Operaio</label>
+
+<select id="presOperaio">
+</select>
+
+<label>Stato</label>
+
+<select id="presStato">
+
+<option value="Presente">
+Presente
+</option>
+
+<option value="Assente">
+Assente
+</option>
+
+<option value="Malattia">
+Malattia
+</option>
+
+<option value="Ferie">
+Ferie
+</option>
+
+</select>
+
+<label>Cantiere</label>
+
+<select id="presCantiere">
+</select>
+
+<label>Furgone</label>
+
+<select id="presFurgone">
+</select>
+
+<label>Autista</label>
+
+<select id="presAutista">
+</select>
+
+<label>Check In</label>
+
+<input
+id="presIn"
+type="time">
+
+<label>Check Out</label>
+
+<input
+id="presOut"
+type="time">
+
+<label>
+
+<input
+id="presTrasferta"
+type="checkbox">
+
+Trasferta
+
+</label>
+
+<label>Dal</label>
+
+<input
+id="presDal"
+type="date">
+
+<label>Al</label>
+
+<input
+id="presAl"
+type="date">
+
+<input
+id="presMotivo"
+placeholder="Motivo">
+
+<button
+id="btnSalvaPresenza">
+
+💾 SALVA PRESENZA
+
+</button>
+
+</div>
+
+<div id="listaPresenzeOggi">
+
+</div>
+
+</section>
+
+<!-- ================= STORICO ================= -->
+
+<section
+id="screenStorico"
+class="screen">
+
+<header>
+
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+📅 Storico
+
+</h2>
+
+</header>
+
+<div class="box">
+
+<label>Data</label>
+
+<input
+id="storicoData"
+type="date">
+
+<label>Operaio</label>
+
+<select id="storicoOperaio">
+
+<option value="">
+
+Tutti gli operai
+
+</option>
+
+</select>
+
+<button
+id="btnCaricaStorico">
+
+🔍 CARICA STORICO
+
+</button>
+
+</div>
+
+<div id="listaStorico">
+
+</div>
+
+</section>
+
+<!-- ================= COSTI ================= -->
+
+<section
+id="screenCosti"
+class="screen">
+
+<header>
+
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+💰 Riepilogo Costi
+
+</h2>
+
+</header>
+
+<div class="box">
+
+<label>Dal</label>
+
+<input
+id="costiDal"
+type="date">
+
+<label>Al</label>
+
+<input
+id="costiAl"
+type="date">
+
+<button
+id="btnCalcolaCosti">
+
+📊 CALCOLA
+
+</button>
+
+</div>
+
+<div id="listaCosti">
+
+</div>
+
+<h2 id="totaleCosti">
+
+Totale: €0.00
+
+</h2>
+
+</section>
+
+<script
+type="module"
+src="app.js">
+
+</script>
+
+</body>
+
+</html>
