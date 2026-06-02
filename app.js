@@ -319,7 +319,7 @@ function renderPresenzeOggi() {
           Furgone: ${p.furgone || "-"}<br>
           Autista: ${p.autista || "-"}<br>
           Trasferta: ${p.trasfertaAttiva ? "Sì" : "No"}<br>
-          Totale: €${euro(p.costoTotale)}
+          
         </small>
       </div>
     `;
@@ -351,7 +351,7 @@ document.getElementById("btnCaricaStorico").onclick = function() {
             Ore: ${p.ore || 0}<br>
             Cantiere: ${p.cantiere || "-"}<br>
             Furgone: ${p.furgone || "-"}<br>
-            Totale: €${euro(p.costoTotale)}<br>
+          
             Motivo: ${p.motivo || "-"}
           </small>
         </div>
