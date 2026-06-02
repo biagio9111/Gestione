@@ -1,146 +1,483 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestione Cantiere</title>
-  <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Gestione Cantiere</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<section id="screenLogin" class="screen active">
-  <div class="login-box">
-    <h1>🏗️ GESTIONE CANTIERE</h1>
-    <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
-    <button id="btnLogin">ACCEDI</button>
-    <p id="loginErrore"></p>
-  </div>
+<!-- LOGIN -->
+
+<section
+id="screenLogin"
+class="screen active">
+
+<div class="login-box">
+
+<h1>
+
+🏗️ GESTIONE CANTIERE
+
+</h1>
+
+<input
+id="email"
+type="email"
+placeholder="Email">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button id="btnLogin">
+
+ACCEDI
+
+</button>
+
+<p id="loginErrore"></p>
+
+</div>
+
 </section>
 
-<section id="screenHome" class="screen">
-  <header>
-    <h2>🏗️ Gestione Cantiere</h2>
-    <button id="btnLogout">Esci</button>
-  </header>
+<!-- HOME -->
 
-  <div class="menu">
-    <button onclick="showScreen('screenOperai')">👷<br>OPERAI</button>
-    <button onclick="showScreen('screenFurgoni')">🚐<br>FURGONI</button>
-    <button onclick="showScreen('screenPresenze')">📋<br>PRESENZE</button>
-    <button onclick="showScreen('screenStorico')">📅<br>STORICO</button>
-    <button onclick="showScreen('screenCosti')" class="wide">💰 RIEPILOGO COSTI</button>
-  </div>
+<section
+id="screenHome"
+class="screen">
 
-  <p id="dataOggi"></p>
+<header>
+
+<h2>
+
+🏗️ Gestione Cantiere
+
+</h2>
+
+<button id="btnLogout">
+
+Esci
+
+</button>
+
+</header>
+
+<div class="menu">
+
+<button
+onclick="showScreen('screenOperai')">
+
+👷<br>
+OPERAI
+
+</button>
+
+<button
+onclick="showScreen('screenFurgoni')">
+
+🚐<br>
+FURGONI
+
+</button>
+
+<button
+onclick="showScreen('screenPresenze')">
+
+📋<br>
+PRESENZE
+
+</button>
+
+<button
+onclick="showScreen('screenStorico')">
+
+📅<br>
+STORICO
+
+</button>
+
+<button
+onclick="showScreen('screenCosti')"
+class="wide">
+
+💰 RIEPILOGO COSTI
+
+</button>
+
+</div>
+
+<p id="dataOggi"></p>
+
 </section>
 
-<section id="screenOperai" class="screen">
-  <header>
-    <button onclick="showScreen('screenHome')">←</button>
-    <h2>👷 Operai</h2>
-  </header>
+<!-- OPERAI -->
 
-  <input id="cercaOperaio" placeholder="🔍 Cerca operaio">
+<section
+id="screenOperai"
+class="screen">
 
-  <div class="box">
-    <input id="opNome" placeholder="Nome operaio">
-    <input id="opRuolo" placeholder="Ruolo">
-    <input id="opTelefono" placeholder="Telefono">
-    <input id="opPaga" type="number" placeholder="Paga €/h">
-    <input id="opTrasferta" type="number" placeholder="Trasferta €">
-    <button id="btnSalvaOperaio">💾 SALVA OPERAIO</button>
-  </div>
+<header>
 
-  <div id="listaOperai"></div>
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+👷 Operai
+
+</h2>
+
+</header>
+
+<input
+id="cercaOperaio"
+placeholder="🔍 Cerca operaio">
+
+<div class="box">
+
+<input
+id="opNome"
+placeholder="Nome operaio">
+
+<input
+id="opRuolo"
+placeholder="Ruolo">
+
+<input
+id="opTelefono"
+placeholder="Telefono">
+
+<input
+id="opPaga"
+type="number"
+placeholder="Paga giornaliera €">
+
+<input
+id="opTrasferta"
+type="number"
+placeholder="Trasferta €">
+
+<button id="btnSalvaOperaio">
+
+💾 SALVA OPERAIO
+
+</button>
+
+</div>
+
+<div id="listaOperai"></div>
+
 </section>
 
-<section id="screenFurgoni" class="screen">
-  <header>
-    <button onclick="showScreen('screenHome')">←</button>
-    <h2>🚐 Furgoni</h2>
-  </header>
+  <!-- FURGONI -->
 
-  <div class="box">
-    <input id="furModello" placeholder="Modello furgone">
-    <input id="furTarga" placeholder="Targa">
-    <button id="btnSalvaFurgone">+ AGGIUNGI FURGONE</button>
-  </div>
+<section
+id="screenFurgoni"
+class="screen">
 
-  <div id="listaFurgoni"></div>
+<header>
+
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+🚐 Furgoni
+
+</h2>
+
+</header>
+
+<div class="box">
+
+<input
+id="furModello"
+placeholder="Modello furgone">
+
+<input
+id="furTarga"
+placeholder="Targa">
+
+<button
+id="btnSalvaFurgone">
+
++ AGGIUNGI FURGONE
+
+</button>
+
+</div>
+
+<div id="listaFurgoni"></div>
+
 </section>
 
-<section id="screenPresenze" class="screen">
-  <header>
-    <button onclick="showScreen('screenHome')">←</button>
-    <h2>📋 Presenze oggi</h2>
-  </header>
+<!-- PRESENZE -->
 
-  <div class="box">
-    <select id="presOperaio"></select>
+<section
+id="screenPresenze"
+class="screen">
 
-    <select id="presStato">
-      <option value="Presente">Presente</option>
-      <option value="Assente">Assente</option>
-      <option value="Malattia">Malattia</option>
-      <option value="Ferie">Ferie</option>
-    </select>
+<header>
 
-    <input id="presCantiere" placeholder="Cantiere">
-    <select id="presFurgone"></select>
-    <select id="presAutista"></select>
+<button
+onclick="showScreen('screenHome')">
 
-    <label>Check-in</label>
-    <input id="presIn" type="time">
+←
 
-    <label>Check-out</label>
-    <input id="presOut" type="time">
+</button>
 
-    <label>
-      <input id="presTrasferta" type="checkbox">
-      Trasferta
-    </label>
+<h2>
 
-    <input id="presDal" type="date">
-    <input id="presAl" type="date">
-    <input id="presMotivo" placeholder="Motivo">
+📋 Presenze Oggi
 
-    <button id="btnSalvaPresenza">💾 SALVA PRESENZA</button>
-  </div>
+</h2>
 
-  <div id="listaPresenzeOggi"></div>
+</header>
+
+<div class="box">
+
+<label>Operaio</label>
+
+<select id="presOperaio">
+
+</select>
+
+<label>Stato</label>
+
+<select id="presStato">
+
+<option value="Presente">
+
+Presente
+
+</option>
+
+<option value="Assente">
+
+Assente
+
+</option>
+
+<option value="Malattia">
+
+Malattia
+
+</option>
+
+<option value="Ferie">
+
+Ferie
+
+</option>
+
+</select>
+
+<label>Cantiere</label>
+
+<input
+id="presCantiere"
+placeholder="Nome cantiere">
+
+<label>Furgone</label>
+
+<select id="presFurgone">
+
+</select>
+
+<label>Autista</label>
+
+<select id="presAutista">
+
+</select>
+
+<label>Check-In</label>
+
+<input
+id="presIn"
+type="time">
+
+<label>Check-Out</label>
+
+<input
+id="presOut"
+type="time">
+
+<label>
+
+<input
+id="presTrasferta"
+type="checkbox">
+
+Trasferta
+
+</label>
+
+<label>Dal</label>
+
+<input
+id="presDal"
+type="date">
+
+<label>Al</label>
+
+<input
+id="presAl"
+type="date">
+
+<input
+id="presMotivo"
+placeholder="Motivo">
+
+<button
+id="btnSalvaPresenza">
+
+💾 SALVA PRESENZA
+
+</button>
+
+</div>
+
+<div id="listaPresenzeOggi">
+
+</div>
+
 </section>
 
-<section id="screenStorico" class="screen">
-  <header>
-    <button onclick="showScreen('screenHome')">←</button>
-    <h2>📅 Storico</h2>
-  </header>
+  <!-- STORICO -->
 
-  <input id="storicoData" type="date">
-  <button id="btnCaricaStorico">CARICA</button>
+<section
+id="screenStorico"
+class="screen">
 
-  <div id="listaStorico"></div>
+<header>
+
+<button
+onclick="showScreen('screenHome')">
+
+←
+
+</button>
+
+<h2>
+
+📅 Storico
+
+</h2>
+
+</header>
+
+<label>Data</label>
+
+<input
+id="storicoData"
+type="date">
+
+<label>Operaio</label>
+
+<select id="storicoOperaio">
+
+<option value="">
+
+Tutti gli operai
+
+</option>
+
+</select>
+
+<button
+id="btnCaricaStorico">
+
+CARICA
+
+</button>
+
+<div id="listaStorico">
+
+</div>
+
 </section>
 
-<section id="screenCosti" class="screen">
-  <header>
-    <button onclick="showScreen('screenHome')">←</button>
-    <h2>💰 Riepilogo costi</h2>
-  </header>
+<!-- COSTI -->
 
-  <label>Dal</label>
-  <input id="costiDal" type="date">
+<section
+id="screenCosti"
+class="screen">
 
-  <label>Al</label>
-  <input id="costiAl" type="date">
+<header>
 
-  <button id="btnCalcolaCosti">🔍 CALCOLA</button>
+<button
+onclick="showScreen('screenHome')">
 
-  <div id="listaCosti"></div>
-  <h2 id="totaleCosti">Totale: €0.00</h2>
+←
+
+</button>
+
+<h2>
+
+💰 Riepilogo Costi
+
+</h2>
+
+</header>
+
+<label>Data Inizio</label>
+
+<input
+id="costiDal"
+type="date">
+
+<label>Data Fine</label>
+
+<input
+id="costiAl"
+type="date">
+
+<button
+id="btnCalcolaCosti">
+
+🔍 CALCOLA
+
+</button>
+
+<div id="listaCosti">
+
+</div>
+
+<h2 id="totaleCosti">
+
+Totale: €0.00
+
+</h2>
+
 </section>
 
-<script type="module" src="app.js"></script>
+<script
+type="module"
+src="app.js">
+
+</script>
+
 </body>
+
 </html>
+
