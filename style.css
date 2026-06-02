@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f4f7;
+  color: #222;
+}
+
+.screen {
+  display: none;
+  padding: 15px;
+}
+
+.screen.active {
+  display: block;
+}
+
+.login-box {
+  max-width: 380px;
+  margin: 60px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 4px 14px #0002;
+}
+
+header {
+  background: #1f2937;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box button,
+.box button,
+#btnCaricaStorico,
+#btnCalcolaCosti {
+  width: 100%;
+  background: #f97316;
+  color: white;
+  margin-top: 10px;
+}
+
+#loginErrore {
+  color: red;
+  font-weight: bold;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.menu button {
+  min-height: 100px;
+  background: white;
+  font-size: 18px;
+  box-shadow: 0 4px 10px #0002;
+}
+
+.menu .wide {
+  grid-column: span 2;
+}
+
+.box {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin: 15px 0;
+  box-shadow: 0 4px 10px #0001;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px #0001;
+}
+
+.card h3 {
+  margin: 0 0 7px 0;
+}
+
+.card small {
+  color: #555;
+  line-height: 1.6;
+}
+
+.btn-edit {
+  background: #2563eb;
+  color: white;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background: #dc2626;
+  color: white;
+  margin-top: 10px;
+}
