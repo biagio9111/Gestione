@@ -1,124 +1,382 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f4f7;
-  color: #222;
+/* =========================
+   GENERALE
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-.screen {
-  display: none;
-  padding: 15px;
+body{
+
+  background:#f2f4f7;
+
+  font-family:
+  Arial,
+  sans-serif;
+
+  color:#222;
+
 }
 
-.screen.active {
-  display: block;
+/* =========================
+   SCHERMATE
+========================= */
+
+.screen{
+
+  display:none;
+
+  padding:15px;
+
 }
 
-.login-box {
-  max-width: 380px;
-  margin: 60px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 4px 14px #0002;
+.screen.active{
+
+  display:block;
+
 }
 
-header {
-  background: #1f2937;
-  color: white;
-  padding: 12px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+  background:#1f2937;
+
+  color:white;
+
+  padding:15px;
+
+  border-radius:12px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:15px;
+
 }
+
+header h2{
+
+  font-size:22px;
+
+}
+
+header button{
+
+  background:#ef4444;
+
+  color:white;
+
+  border:none;
+
+  padding:10px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-box{
+
+  max-width:400px;
+
+  margin:60px auto;
+
+  background:white;
+
+  padding:25px;
+
+  border-radius:16px;
+
+  text-align:center;
+
+  box-shadow:
+  0 4px 15px rgba(0,0,0,0.1);
+
+}
+
+.login-box h1{
+
+  margin-bottom:20px;
+
+}
+
+#loginErrore{
+
+  color:red;
+
+  margin-top:10px;
+
+  font-weight:bold;
+
+}
+
+/* =========================
+   INPUT
+========================= */
 
 input,
-select {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+select{
+
+  width:100%;
+
+  padding:12px;
+
+  margin-top:8px;
+
+  margin-bottom:8px;
+
+  border:1px solid #ccc;
+
+  border-radius:10px;
+
 }
 
-button {
-  border: none;
-  border-radius: 10px;
-  padding: 13px;
-  font-weight: bold;
-  cursor: pointer;
+/* =========================
+   BOTTONI
+========================= */
+
+button{
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  border:none;
+
 }
 
-.login-box button,
-.box button,
+.login-box button{
+
+  width:100%;
+
+  padding:14px;
+
+  background:#f97316;
+
+  color:white;
+
+  border-radius:10px;
+
+  margin-top:10px;
+
+}
+/* =========================
+   MENU HOME
+========================= */
+
+.menu{
+
+  display:grid;
+
+  grid-template-columns:
+  1fr 1fr;
+
+  gap:15px;
+
+  margin-top:20px;
+
+}
+
+.menu button{
+
+  min-height:110px;
+
+  background:white;
+
+  border-radius:16px;
+
+  box-shadow:
+  0 4px 10px rgba(0,0,0,0.08);
+
+  font-size:18px;
+
+}
+
+.menu .wide{
+
+  grid-column:span 2;
+
+}
+
+#dataOggi{
+
+  margin-top:20px;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+}
+
+/* =========================
+   BOX
+========================= */
+
+.box{
+
+  background:white;
+
+  padding:15px;
+
+  border-radius:15px;
+
+  margin-bottom:15px;
+
+  box-shadow:
+  0 4px 10px rgba(0,0,0,0.08);
+
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+  background:white;
+
+  padding:15px;
+
+  margin-bottom:12px;
+
+  border-radius:15px;
+
+  box-shadow:
+  0 4px 10px rgba(0,0,0,0.08);
+
+}
+
+.card h3{
+
+  margin-bottom:8px;
+
+}
+
+.card small{
+
+  display:block;
+
+  line-height:1.6;
+
+}
+
+/* =========================
+   PULSANTI
+========================= */
+
+.btn-delete{
+
+  background:#dc2626;
+
+  color:white;
+
+  padding:10px 15px;
+
+  border-radius:8px;
+
+  margin-top:10px;
+
+}
+
+.btn-edit{
+
+  background:#2563eb;
+
+  color:white;
+
+  padding:10px 15px;
+
+  border-radius:8px;
+
+  margin-top:10px;
+
+  margin-right:5px;
+
+}
+
+/* =========================
+   SALVA
+========================= */
+
+#btnSalvaOperaio,
+#btnSalvaFurgone,
+#btnSalvaCantiere,
+#btnSalvaPresenza,
 #btnCaricaStorico,
-#btnCalcolaCosti {
-  width: 100%;
-  background: #f97316;
-  color: white;
-  margin-top: 10px;
+#btnCalcolaCosti{
+
+  width:100%;
+
+  padding:14px;
+
+  background:#f97316;
+
+  color:white;
+
+  border-radius:10px;
+
+  margin-top:10px;
+
 }
 
-#loginErrore {
-  color: red;
-  font-weight: bold;
+/* =========================
+   LABEL
+========================= */
+
+label{
+
+  display:block;
+
+  margin-top:10px;
+
+  font-weight:bold;
+
 }
 
-.menu {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 25px;
+/* =========================
+   COSTI
+========================= */
+
+#totaleCosti{
+
+  text-align:center;
+
+  color:#16a34a;
+
+  font-size:28px;
+
 }
 
-.menu button {
-  min-height: 100px;
-  background: white;
-  font-size: 18px;
-  box-shadow: 0 4px 10px #0002;
-}
+/* =========================
+   MOBILE
+========================= */
 
-.menu .wide {
-  grid-column: span 2;
-}
+@media(max-width:600px){
 
-.box {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  margin: 15px 0;
-  box-shadow: 0 4px 10px #0001;
-}
+  .menu{
 
-.card {
-  background: white;
-  padding: 15px;
-  margin: 12px 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px #0001;
-}
+    grid-template-columns:
+    1fr;
 
-.card h3 {
-  margin: 0 0 7px 0;
-}
+  }
 
-.card small {
-  color: #555;
-  line-height: 1.6;
-}
+  .menu .wide{
 
-.btn-edit {
-  background: #2563eb;
-  color: white;
-  margin-top: 10px;
-  margin-right: 5px;
-}
+    grid-column:span 1;
 
-.btn-delete {
-  background: #dc2626;
-  color: white;
-  margin-top: 10px;
+  }
+
 }
