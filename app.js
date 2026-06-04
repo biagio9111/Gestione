@@ -69,6 +69,7 @@ let cantieri = {};
 let presenzeOggi = {};
 
 let storico = {};
+let operaioInModifica = null;
 
 /* =========================
 CAMBIO SCHERMATA
@@ -270,13 +271,65 @@ document
 .getElementById("btnSalvaOperaio")
 .onclick = function(){
 
+const nome =
+document.getElementById("opNome")
+.value
+.trim();
+
+if(nome === ""){
+
+alert(
+"Inserisci nome operaio"
+);
+
+return;
+
+}
+
+let doppione = false;
+
+Object.entries(operai)
+.forEach(function([id,op]){
+
+if(
+op.nome &&
+op.nome.trim().toLowerCase()
+=== nome.toLowerCase() &&
+id !== operaioInModifica
+){
+
+  doppione = true;
+
+}
+
+});
+
+if(doppione){
+
+alert(
+"Operaio già presente"
+);
+
+return;
+
+}
+
 const id =
+
+operaioInModifica
+
+?
+
+operaioInModifica
+
+:
+
 "op_" + Date.now();
 
 const dati = {
 
 nome:
-document.getElementById("opNome").value,
+nome,
 
 ruolo:
 document.getElementById("opRuolo").value,
@@ -301,7 +354,17 @@ ref(db,"operai/" + id),
 dati
 );
 
+operaioInModifica = null;
+
+document.getElementById("opNome").value = "";
+document.getElementById("opRuolo").value = "";
+document.getElementById("opTelefono").value = "";
+document.getElementById("opPaga").value = "";
+document.getElementById("opTrasferta").value = "";
+
 };
+
+/* VISUALIZZA OPERAI */
 
 function renderOperai(){
 
@@ -315,9 +378,9 @@ Object.entries(operai)
 
 box.innerHTML += `
 
-   <div class="card">     <h3>  
-   👷 ${op.nome}  
-   </h3>     <small>  Ruolo:
+   <div class="card">   <h3>
+   👷 ${op.nome}
+   </h3>   <small>Ruolo:
 ${op.ruolo}<br>
 
 Telefono:
@@ -329,17 +392,60 @@ Paga:
 Trasferta:
 €${op.trasferta}
 
-   </small>     <br>  <button  
-class="btn-delete"  
+   </small><br><br>
+
+<button
+onclick="modificaOperaio('${id}')">
+
+Modifica
+
+   </button><button
+class="btn-delete"
 onclick="eliminaOperaio('${id}')">
 
 Elimina
 
-   </button>     </div>  `;
+   </button>   </div>`;
 
 });
 
 }
+
+/* MODIFICA OPERAIO */
+
+window.modificaOperaio =
+function(id){
+
+const op =
+operai[id];
+
+if(!op) return;
+
+document.getElementById("opNome").value =
+op.nome || "";
+
+document.getElementById("opRuolo").value =
+op.ruolo || "";
+
+document.getElementById("opTelefono").value =
+op.telefono || "";
+
+document.getElementById("opPaga").value =
+op.pagaGiorno || 0;
+
+document.getElementById("opTrasferta").value =
+op.trasferta || 0;
+
+operaioInModifica = id;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+/* ELIMINA OPERAIO */
 
 window.eliminaOperaio =
 function(id){
