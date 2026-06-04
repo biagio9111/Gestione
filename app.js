@@ -397,8 +397,14 @@ Trasferta:
 <button
 onclick="modificaOperaio('${id}')">
 
-Modifica
 
+<button
+class="btn-edit"
+onclick="modificaOperaio('${id}')">
+
+✏️ Modifica
+
+</button>
    </button><button
 class="btn-delete"
 onclick="eliminaOperaio('${id}')">
