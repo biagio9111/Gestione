@@ -2,48 +2,48 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
- getAuth,
- signInWithEmailAndPassword,
- signOut,
- onAuthStateChanged
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
- getDatabase,
- ref,
- onValue,
- set,
- remove
+getDatabase,
+ref,
+onValue,
+set,
+remove
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* =========================
-   FIREBASE
+FIREBASE
 ========================= */
 
 const firebaseConfig = {
 
- apiKey:
- "AIzaSyBlwH6PrN4fVRant9e52KSN8elfWLZ_yFM",
+apiKey:
+"AIzaSyBlwH6PrN4fVRant9e52KSN8elfWLZ_yFM",
 
- authDomain:
- "gestione-90c47.firebaseapp.com",
+authDomain:
+"gestione-90c47.firebaseapp.com",
 
- databaseURL:
- "https://gestione-90c47-default-rtdb.europe-west1.firebasedatabase.app",
+databaseURL:
+"https://gestione-90c47-default-rtdb.europe-west1.firebasedatabase.app",
 
- projectId:
- "gestione-90c47",
+projectId:
+"gestione-90c47",
 
- storageBucket:
- "gestione-90c47.firebasestorage.app",
+storageBucket:
+"gestione-90c47.firebasestorage.app",
 
- messagingSenderId:
- "671030782476",
+messagingSenderId:
+"671030782476",
 
- appId:
- "1:671030782476:web:4ce37b8a34e35ecdc49c29"
+appId:
+"1:671030782476:web:4ce37b8a34e35ecdc49c29"
 
 };
 
@@ -57,7 +57,7 @@ const db =
 getDatabase(app);
 
 /* =========================
-   VARIABILI
+VARIABILI
 ========================= */
 
 let operai = {};
@@ -71,37 +71,37 @@ let presenzeOggi = {};
 let storico = {};
 
 /* =========================
-   CAMBIO SCHERMATA
+CAMBIO SCHERMATA
 ========================= */
 
 window.showScreen =
 function(id){
 
- document
- .querySelectorAll(".screen")
- .forEach(function(screen){
+document
+.querySelectorAll(".screen")
+.forEach(function(screen){
 
-   screen.classList.remove(
-   "active"
-   );
+screen.classList.remove(
+"active"
+);
 
- });
+});
 
- document
- .getElementById(id)
- .classList.add("active");
+document
+.getElementById(id)
+.classList.add("active");
 
 };
 
 /* =========================
-   DATA OGGI
+DATA OGGI
 ========================= */
 
 function oggiISO(){
 
- return new Date()
- .toISOString()
- .slice(0,10);
+return new Date()
+.toISOString()
+.slice(0,10);
 
 }
 
@@ -115,13 +115,13 @@ document.getElementById("presData");
 
 if(campoData){
 
- campoData.value =
- oggiISO();
+campoData.value =
+oggiISO();
 
 }
 
 /* =========================
-   LOGIN
+LOGIN
 ========================= */
 
 document
@@ -129,39 +129,39 @@ document
 .onclick =
 async function(){
 
- const email =
- document.getElementById(
- "email"
- ).value;
+const email =
+document.getElementById(
+"email"
+).value;
 
- const password =
- document.getElementById(
- "password"
- ).value;
+const password =
+document.getElementById(
+"password"
+).value;
 
- try{
+try{
 
-   await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-   );
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
- }catch(e){
+}catch(e){
 
-   document
-   .getElementById(
-   "loginErrore"
-   )
-   .innerText =
-   "Email o Password errata";
+document
+.getElementById(
+"loginErrore"
+)
+.innerText =
+"Email o Password errata";
 
- }
+}
 
 };
 
 /* =========================
-   LOGOUT
+LOGOUT
 ========================= */
 
 document
@@ -169,950 +169,891 @@ document
 .onclick =
 async function(){
 
- await signOut(auth);
+await signOut(auth);
 
 };
 
 /* =========================
-   CONTROLLO LOGIN
+CONTROLLO LOGIN
 ========================= */
 
 onAuthStateChanged(
- auth,
- function(user){
+auth,
+function(user){
 
-   if(user){
+if(user){
 
-      showScreen(
-      "screenHome"
-      );
+showScreen(  
+  "screenHome"  
+  );  
 
-      caricaRealtime();
+  caricaRealtime();
 
-   }else{
+}else{
 
-      showScreen(
-      "screenLogin"
-      );
+showScreen(  
+  "screenLogin"  
+  );
 
-   }
+}
 
- }
+}
 );
 
 /* =========================
-   CARICA REALTIME
+CARICA REALTIME
 ========================= */
 
 function caricaRealtime(){
 
- onValue(
-  ref(db,"operai"),
-  function(snapshot){
+onValue(
+ref(db,"operai"),
+function(snapshot){
 
-   operai =
-   snapshot.val() || {};
+operai =
+snapshot.val() || {};
 
-   renderOperai();
+renderOperai();
 
-   riempiSelectOperai();
+riempiSelectOperai();
 
-  });
+});
 
- onValue(
-  ref(db,"furgoni"),
-  function(snapshot){
+onValue(
+ref(db,"furgoni"),
+function(snapshot){
 
-   furgoni =
-   snapshot.val() || {};
+furgoni =
+snapshot.val() || {};
 
-   renderFurgoni();
+renderFurgoni();
 
-   riempiSelectFurgoni();
+riempiSelectFurgoni();
 
-  });
+});
 
- onValue(
-  ref(db,"cantieri"),
-  function(snapshot){
+onValue(
+ref(db,"cantieri"),
+function(snapshot){
 
-   cantieri =
-   snapshot.val() || {};
+cantieri =
+snapshot.val() || {};
 
-   renderCantieri();
+renderCantieri();
 
-   riempiSelectCantieri();
+riempiSelectCantieri();
 
-  });
+});
 
- onValue(
-  ref(
-   db,
-   "presenze/" +
-   oggiISO()
-  ),
+onValue(
+ref(
+db,
+"presenze/" +
+oggiISO()
+),
 
-  function(snapshot){
+function(snapshot){
 
-   presenzeOggi =
-   snapshot.val() || {};
+presenzeOggi =
+snapshot.val() || {};
 
-   renderPresenzeOggi();
+renderPresenzeOggi();
 
-  });
+});
 
 }
 /* =========================
-   OPERAI
+OPERAI
 ========================= */
 
 document
 .getElementById("btnSalvaOperaio")
 .onclick = function(){
 
- const id =
- "op_" + Date.now();
+const id =
+"op_" + Date.now();
 
- const dati = {
+const dati = {
 
-   nome:
-   document.getElementById("opNome").value,
+nome:
+document.getElementById("opNome").value,
 
-   ruolo:
-   document.getElementById("opRuolo").value,
+ruolo:
+document.getElementById("opRuolo").value,
 
-   telefono:
-   document.getElementById("opTelefono").value,
+telefono:
+document.getElementById("opTelefono").value,
 
-   pagaGiorno:
-   Number(
-   document.getElementById("opPaga").value || 0
-   ),
+pagaGiorno:
+Number(
+document.getElementById("opPaga").value || 0
+),
 
-   trasferta:
-   Number(
-   document.getElementById("opTrasferta").value || 0
-   )
+trasferta:
+Number(
+document.getElementById("opTrasferta").value || 0
+)
 
- };
+};
 
- set(
-  ref(db,"operai/" + id),
-  dati
- );
+set(
+ref(db,"operai/" + id),
+dati
+);
 
 };
 
 function renderOperai(){
 
- const box =
- document.getElementById("listaOperai");
+const box =
+document.getElementById("listaOperai");
 
- box.innerHTML = "";
+box.innerHTML = "";
 
- Object.entries(operai)
- .forEach(function([id,op]){
+Object.entries(operai)
+.forEach(function([id,op]){
 
-   box.innerHTML += `
+box.innerHTML += `
 
-   <div class="card">
+   <div class="card">     <h3>  
+   👷 ${op.nome}  
+   </h3>     <small>  Ruolo:
+${op.ruolo}<br>
 
-   <h3>
-   👷 ${op.nome}
-   </h3>
+Telefono:
+${op.telefono}<br>
 
-   <small>
+Paga:
+€${op.pagaGiorno}<br>
 
-   Ruolo:
-   ${op.ruolo}<br>
+Trasferta:
+€${op.trasferta}
 
-   Telefono:
-   ${op.telefono}<br>
+   </small>     <br>  <button  
+class="btn-delete"  
+onclick="eliminaOperaio('${id}')">
 
-   Paga:
-   €${op.pagaGiorno}<br>
+Elimina
 
-   Trasferta:
-   €${op.trasferta}
+   </button>     </div>  `;
 
-   </small>
-
-   <br>
-
-   <button
-   class="btn-delete"
-   onclick="eliminaOperaio('${id}')">
-
-   Elimina
-
-   </button>
-
-   </div>
-
-   `;
-
- });
+});
 
 }
 
 window.eliminaOperaio =
 function(id){
 
- if(confirm(
- "Eliminare operaio?"
- )){
+if(confirm(
+"Eliminare operaio?"
+)){
 
-   remove(
-    ref(
-     db,
-     "operai/" + id
-    )
-   );
+remove(
+ref(
+db,
+"operai/" + id
+)
+);
 
- }
+}
 
 };
 
 /* =========================
-   FURGONI
+FURGONI
 ========================= */
 
 document
 .getElementById("btnSalvaFurgone")
 .onclick = function(){
 
- const id =
- "fur_" + Date.now();
+const id =
+"fur_" + Date.now();
 
- const dati = {
+const dati = {
 
-   modello:
-   document.getElementById("furModello").value,
+modello:
+document.getElementById("furModello").value,
 
-   targa:
-   document.getElementById("furTarga").value
+targa:
+document.getElementById("furTarga").value
 
- };
+};
 
- set(
-  ref(
-   db,
-   "furgoni/" + id
-  ),
-  dati
- );
+set(
+ref(
+db,
+"furgoni/" + id
+),
+dati
+);
 
 };
 
 function renderFurgoni(){
 
- const box =
- document.getElementById("listaFurgoni");
+const box =
+document.getElementById("listaFurgoni");
 
- box.innerHTML = "";
+box.innerHTML = "";
 
- Object.entries(furgoni)
- .forEach(function([id,f]){
+Object.entries(furgoni)
+.forEach(function([id,f]){
 
-   box.innerHTML += `
+box.innerHTML += `
 
-   <div class="card">
+   <div class="card">     <h3>  
+   🚐 ${f.modello}  
+   </h3>     <small>  Targa:
+${f.targa}
 
-   <h3>
-   🚐 ${f.modello}
-   </h3>
+   </small>     <br>  <button  
+class="btn-delete"  
+onclick="eliminaFurgone('${id}')">
 
-   <small>
+Elimina
 
-   Targa:
-   ${f.targa}
+   </button>     </div>  `;
 
-   </small>
-
-   <br>
-
-   <button
-   class="btn-delete"
-   onclick="eliminaFurgone('${id}')">
-
-   Elimina
-
-   </button>
-
-   </div>
-
-   `;
-
- });
+});
 
 }
 
 window.eliminaFurgone =
 function(id){
 
- if(confirm(
- "Eliminare furgone?"
- )){
+if(confirm(
+"Eliminare furgone?"
+)){
 
-   remove(
-    ref(
-     db,
-     "furgoni/" + id
-    )
-   );
+remove(
+ref(
+db,
+"furgoni/" + id
+)
+);
 
- }
+}
 
 };
 
 /* =========================
-   CANTIERI
+CANTIERI
 ========================= */
 
 document
 .getElementById("btnSalvaCantiere")
 .onclick = function(){
 
- const id =
- "cant_" + Date.now();
+const id =
+"cant_" + Date.now();
 
- const dati = {
+const dati = {
 
-   nome:
-   document.getElementById("cantNome").value,
+nome:
+document.getElementById("cantNome").value,
 
-   cliente:
-   document.getElementById("cantCliente").value,
+cliente:
+document.getElementById("cantCliente").value,
 
-   indirizzo:
-   document.getElementById("cantIndirizzo").value,
+indirizzo:
+document.getElementById("cantIndirizzo").value,
 
-   telefono:
-   document.getElementById("cantTelefono").value,
+telefono:
+document.getElementById("cantTelefono").value,
 
-   note:
-   document.getElementById("cantNote").value
+note:
+document.getElementById("cantNote").value
 
- };
+};
 
- set(
-  ref(
-   db,
-   "cantieri/" + id
-  ),
-  dati
- );
+set(
+ref(
+db,
+"cantieri/" + id
+),
+dati
+);
 
- alert("Cantiere salvato");
+alert("Cantiere salvato");
 
 };
 
 function renderCantieri(){
 
- const box =
- document.getElementById("listaCantieri");
+const box =
+document.getElementById("listaCantieri");
 
- box.innerHTML = "";
+box.innerHTML = "";
 
- Object.entries(cantieri)
- .forEach(function([id,c]){
+Object.entries(cantieri)
+.forEach(function([id,c]){
 
-   box.innerHTML += `
+box.innerHTML += `
 
-   <div class="card">
+   <div class="card">     <h3>  
+   🏗️ ${c.nome}  
+   </h3>     <small>  Cliente:
+${c.cliente}<br>
 
-   <h3>
-   🏗️ ${c.nome}
-   </h3>
+Indirizzo:
+${c.indirizzo}<br>
 
-   <small>
+Telefono:
+${c.telefono}
 
-   Cliente:
-   ${c.cliente}<br>
+   </small>     <br>  <button  
+class="btn-delete"  
+onclick="eliminaCantiere('${id}')">
 
-   Indirizzo:
-   ${c.indirizzo}<br>
+Elimina
 
-   Telefono:
-   ${c.telefono}
+   </button>     </div>  `;
 
-   </small>
-
-   <br>
-
-   <button
-   class="btn-delete"
-   onclick="eliminaCantiere('${id}')">
-
-   Elimina
-
-   </button>
-
-   </div>
-
-   `;
-
- });
+});
 
 }
 
 window.eliminaCantiere =
 function(id){
 
- if(confirm(
- "Eliminare cantiere?"
- )){
+if(confirm(
+"Eliminare cantiere?"
+)){
 
-   remove(
-    ref(
-     db,
-     "cantieri/" + id
-    )
-   );
+remove(
+ref(
+db,
+"cantieri/" + id
+)
+);
 
- }
+}
 
 };
 /* =========================
-   SELECT OPERAI
+SELECT OPERAI
 ========================= */
 
 function riempiSelectOperai(){
 
- const presOperaio =
- document.getElementById("presOperaio");
+const presOperaio =
+document.getElementById("presOperaio");
 
- const presAutista =
- document.getElementById("presAutista");
+const presAutista =
+document.getElementById("presAutista");
 
- const storicoOperaio =
- document.getElementById("storicoOperaio");
+const storicoOperaio =
+document.getElementById("storicoOperaio");
 
- if(presOperaio)
- presOperaio.innerHTML = "";
+if(presOperaio)
+presOperaio.innerHTML = "";
 
- if(presAutista)
- presAutista.innerHTML = "";
+if(presAutista)
+presAutista.innerHTML = "";
 
- if(storicoOperaio)
- storicoOperaio.innerHTML =
- '<option value="">Tutti gli operai</option>';
+if(storicoOperaio)
+storicoOperaio.innerHTML =
+'<option value="">Tutti gli operai</option>';
 
- Object.entries(operai)
- .forEach(function([id,op]){
+Object.entries(operai)
+.forEach(function([id,op]){
 
-   if(presOperaio){
+if(presOperaio){
 
-     presOperaio.innerHTML +=
-     `<option value="${id}">
-       ${op.nome}
-     </option>`;
+presOperaio.innerHTML +=  
+ `<option value="${id}">  
+   ${op.nome}  
+ </option>`;
 
-   }
+}
 
-   if(presAutista){
+if(presAutista){
 
-     presAutista.innerHTML +=
-     `<option value="${op.nome}">
-       ${op.nome}
-     </option>`;
+presAutista.innerHTML +=  
+ `<option value="${op.nome}">  
+   ${op.nome}  
+ </option>`;
 
-   }
+}
 
-   if(storicoOperaio){
+if(storicoOperaio){
 
-     storicoOperaio.innerHTML +=
-     `<option value="${op.nome}">
-       ${op.nome}
-     </option>`;
+storicoOperaio.innerHTML +=  
+ `<option value="${op.nome}">  
+   ${op.nome}  
+ </option>`;
 
-   }
+}
 
- });
+});
 
 }
 
 /* =========================
-   SELECT FURGONI
+SELECT FURGONI
 ========================= */
 
 function riempiSelectFurgoni(){
 
- const select =
- document.getElementById("presFurgone");
+const select =
+document.getElementById("presFurgone");
 
- if(!select) return;
+if(!select) return;
 
- select.innerHTML = "";
+select.innerHTML = "";
 
- Object.entries(furgoni)
- .forEach(function([id,f]){
+Object.entries(furgoni)
+.forEach(function([id,f]){
 
-   select.innerHTML +=
+select.innerHTML +=
 
-   `<option value="${f.modello}">
-     ${f.modello} (${f.targa})
-   </option>`;
+`<option value="${f.modello}">
+${f.modello} (${f.targa})
 
- });
+   </option>`;  });
 
 }
 
 /* =========================
-   SELECT CANTIERI
+SELECT CANTIERI
 ========================= */
 
 function riempiSelectCantieri(){
 
- const select =
- document.getElementById("presCantiere");
+const select =
+document.getElementById("presCantiere");
 
- if(!select) return;
+if(!select) return;
 
- select.innerHTML = "";
+select.innerHTML = "";
 
- Object.entries(cantieri)
- .forEach(function([id,c]){
+Object.entries(cantieri)
+.forEach(function([id,c]){
 
-   select.innerHTML +=
+select.innerHTML +=
 
-   `<option value="${c.nome}">
-      ${c.nome}
-   </option>`;
+`<option value="${c.nome}">
+${c.nome}
 
- });
+   </option>`;  });
 
 }
 
 /* =========================
-   PRESENZE
+PRESENZE
 ========================= */
 
 document
 .getElementById("btnSalvaPresenza")
 .onclick = function(){
 
- const idOperaio =
- document.getElementById(
- "presOperaio"
- ).value;
- const dataGiornata =
- document.getElementById(
- "presData"
- ).value || oggiISO();
+const idOperaio =
+document.getElementById(
+"presOperaio"
+).value;
+const dataGiornata =
+document.getElementById(
+"presData"
+).value || oggiISO();
 
- const op =
- operai[idOperaio];
+const op =
+operai[idOperaio];
 
- if(!op){
+if(!op){
 
-   alert(
-   "Seleziona un operaio"
-   );
+alert(
+"Seleziona un operaio"
+);
 
-   return;
+return;
 
- }
+}
 
- const dati = {
+const dati = {
 
-   nome: op.nome,
+nome: op.nome,
 
-   stato:
-   document.getElementById(
-   "presStato"
-   ).value,
+stato:
+document.getElementById(
+"presStato"
+).value,
 
-   cantiere:
-   document.getElementById(
-   "presCantiere"
-   ).value,
+cantiere:
+document.getElementById(
+"presCantiere"
+).value,
 
-   furgone:
-   document.getElementById(
-   "presFurgone"
-   ).value,
+furgone:
+document.getElementById(
+"presFurgone"
+).value,
 
-   autista:
-   document.getElementById(
-   "presAutista"
-   ).value,
+autista:
+document.getElementById(
+"presAutista"
+).value,
 
-   checkIn:
-   document.getElementById(
-   "presIn"
-   ).value,
+checkIn:
+document.getElementById(
+"presIn"
+).value,
 
-   checkOut:
-   document.getElementById(
-   "presOut"
-   ).value,
+checkOut:
+document.getElementById(
+"presOut"
+).value,
 
-   trasferta:
-   document.getElementById(
-   "presTrasferta"
-   ).checked,
+trasferta:
+document.getElementById(
+"presTrasferta"
+).checked,
 
-   dal:
-   document.getElementById(
-   "presDal"
-   ).value,
+dal:
+document.getElementById(
+"presDal"
+).value,
 
-   al:
-   document.getElementById(
-   "presAl"
-   ).value,
+al:
+document.getElementById(
+"presAl"
+).value,
 
-   motivo:
-   document.getElementById(
-   "presMotivo"
-   ).value,
+motivo:
+document.getElementById(
+"presMotivo"
+).value,
 
-   pagaGiorno:
-   op.pagaGiorno || 0
+pagaGiorno:
+op.pagaGiorno || 0
 
- };
+};
 
- set(
+set(
 
-  ref(
- db,
- "presenze/" +
- dataGiornata +
- "/" +
- idOperaio
+ref(
+db,
+"presenze/" +
+dataGiornata +
+"/" +
+idOperaio
 ),
 
-  dati
+dati
 
- );
+);
 
- alert(
- "Presenza salvata"
- );
+alert(
+"Presenza salvata"
+);
 
 };
 
 function renderPresenzeOggi(){
 
- const box =
- document.getElementById(
- "listaPresenzeOggi"
- );
+const box =
+document.getElementById(
+"listaPresenzeOggi"
+);
 
- if(!box) return;
+if(!box) return;
 
- box.innerHTML = "";
+box.innerHTML = "";
 
- Object.entries(
- presenzeOggi
- )
- .forEach(function([id,p]){
+Object.entries(
+presenzeOggi
+)
+.forEach(function([id,p]){
 
-   box.innerHTML += `
+box.innerHTML += `
 
-   <div class="card">
+   <div class="card">     <h3>  👷 ${p.nome}
 
-   <h3>
+   </h3>     <small>  Stato:
+${p.stato}<br>
 
-   👷 ${p.nome}
+Cantiere:
+${p.cantiere}<br>
 
-   </h3>
+Furgone:
+${p.furgone}<br>
 
-   <small>
+Autista:
+${p.autista}<br>
 
-   Stato:
-   ${p.stato}<br>
+Check-In:
+${p.checkIn}<br>
 
-   Cantiere:
-   ${p.cantiere}<br>
+Check-Out:
+${p.checkOut}
 
-   Furgone:
-   ${p.furgone}<br>
+   </small>     <br>  <button  
+class="btn-delete"  
+onclick="eliminaPresenza('${id}')">
 
-   Autista:
-   ${p.autista}<br>
+Elimina
 
-   Check-In:
-   ${p.checkIn}<br>
+   </button>     </div>  `;
 
-   Check-Out:
-   ${p.checkOut}
-
-   </small>
-
-   <br>
-
-   <button
-   class="btn-delete"
-   onclick="eliminaPresenza('${id}')">
-
-   Elimina
-
-   </button>
-
-   </div>
-
-   `;
-
- });
+});
 
 }
 
 window.eliminaPresenza =
 function(id){
 
- if(confirm(
- "Eliminare giornata?"
- )){
+if(confirm(
+"Eliminare giornata?"
+)){
 
-   remove(
+remove(
 
-    ref(
-     db,
-     "presenze/" +
-     oggiISO() +
-     "/" +
-     id
-    )
+ref(  
+ db,  
+ "presenze/" +  
+ oggiISO() +  
+ "/" +  
+ id  
+)
 
-   );
+);
 
- }
+}
 
 };
 /* =========================
-   STORICO
+STORICO
 ========================= */
 
 document
 .getElementById("btnCaricaStorico")
 .onclick = function(){
 
- const data =
- document.getElementById(
- "storicoData"
- ).value;
+const data =
+document.getElementById(
+"storicoData"
+).value;
 
- const operaio =
- document.getElementById(
- "storicoOperaio"
- ).value;
+const operaio =
+document.getElementById(
+"storicoOperaio"
+).value;
 
- if(!data){
+if(!data){
 
-   alert(
-   "Seleziona una data"
-   );
+alert(
+"Seleziona una data"
+);
 
-   return;
+return;
 
- }
+}
 
- onValue(
+onValue(
 
- ref(
-  db,
-  "presenze/" + data
- ),
+ref(
+db,
+"presenze/" + data
+),
 
- function(snapshot){
+function(snapshot){
 
-   storico =
-   snapshot.val() || {};
+storico =
+snapshot.val() || {};
 
-   const box =
-   document.getElementById(
-   "listaStorico"
-   );
+const box =
+document.getElementById(
+"listaStorico"
+);
 
-   box.innerHTML = "";
+box.innerHTML = "";
 
-   Object.entries(storico)
-   .forEach(function([id,p]){
+Object.entries(storico)
+.forEach(function([id,p]){
 
-      if(
-       operaio !== "" &&
-       p.nome !== operaio
-      ){
-       return;
-      }
+if(  
+   operaio !== "" &&  
+   p.nome !== operaio  
+  ){  
+   return;  
+  }  
 
-      box.innerHTML += `
+  box.innerHTML += `  
 
-      <div class="card">
+  <div class="card">  
 
-      <h3>
+  <h3>  
 
-      👷 ${p.nome}
+  👷 ${p.nome}  
 
-      </h3>
+  </h3>  
 
-      <small>
+  <small>  
 
-      Stato:
-      ${p.stato}<br>
+  Stato:  
+  ${p.stato}<br>  
 
-      Cantiere:
-      ${p.cantiere || "-"}<br>
+  Cantiere:  
+  ${p.cantiere || "-"}<br>  
 
-      Furgone:
-      ${p.furgone || "-"}<br>
+  Furgone:  
+  ${p.furgone || "-"}<br>  
 
-      Autista:
-      ${p.autista || "-"}<br>
+  Autista:  
+  ${p.autista || "-"}<br>  
 
-      Check-In:
-      ${p.checkIn || "-"}<br>
+  Check-In:  
+  ${p.checkIn || "-"}<br>  
 
-      Check-Out:
-      ${p.checkOut || "-"}<br>
+  Check-Out:  
+  ${p.checkOut || "-"}<br>  
 
-      Motivo:
-      ${p.motivo || "-"}
+  Motivo:  
+  ${p.motivo || "-"}  
 
-      </small>
+  </small>  
 
-      </div>
+  </div>  
 
-      `;
+  `;
 
-   });
+});
 
- });
+});
 
 };
 
 /* =========================
-   COSTI
+COSTI
 ========================= */
 
 document
 .getElementById("btnCalcolaCosti")
 .onclick = function(){
 
- const dal =
- document.getElementById(
- "costiDal"
- ).value;
+const dal =
+document.getElementById(
+"costiDal"
+).value;
 
- const al =
- document.getElementById(
- "costiAl"
- ).value;
+const al =
+document.getElementById(
+"costiAl"
+).value;
 
- if(
- !dal ||
- !al
- ){
+if(
+!dal ||
+!al
+){
 
-   alert(
-   "Seleziona le date"
-   );
+alert(
+"Seleziona le date"
+);
 
-   return;
+return;
 
- }
+}
 
- onValue(
+onValue(
 
- ref(db,"presenze"),
+ref(db,"presenze"),
 
- function(snapshot){
+function(snapshot){
 
-   const dati =
-   snapshot.val() || {};
+const dati =
+snapshot.val() || {};
 
-   const riepilogo = {};
+const riepilogo = {};
 
-   let totale = 0;
+let totale = 0;
 
-   Object.entries(dati)
-   .forEach(function([data,giornata]){
+Object.entries(dati)
+.forEach(function([data,giornata]){
 
-      if(
-       data >= dal &&
-       data <= al
-      ){
+if(  
+   data >= dal &&  
+   data <= al  
+  ){  
 
-         Object.values(giornata)
-         .forEach(function(p){
+     Object.values(giornata)  
+     .forEach(function(p){  
 
-            let paga = 0;
+        let paga = 0;  
 
-            if(
-             p.stato === "Presente"
-            ){
+        if(  
+         p.stato === "Presente"  
+        ){  
 
-               paga =
-               Number(
-               p.pagaGiorno || 0
-               );
+           paga =  
+           Number(  
+           p.pagaGiorno || 0  
+           );  
 
-            }
+        }  
 
-            const nome =
-            p.nome;
+        const nome =  
+        p.nome;  
 
-            if(
-             !riepilogo[nome]
-            ){
+        if(  
+         !riepilogo[nome]  
+        ){  
 
-               riepilogo[nome] = 0;
+           riepilogo[nome] = 0;  
 
-            }
+        }  
 
-            riepilogo[nome] += paga;
+        riepilogo[nome] += paga;  
 
-            totale += paga;
+        totale += paga;  
 
-         });
+     });  
 
-      }
+  }
 
-   });
+});
 
-   const box =
-   document.getElementById(
-   "listaCosti"
-   );
+const box =
+document.getElementById(
+"listaCosti"
+);
 
-   box.innerHTML = "";
+box.innerHTML = "";
 
-   Object.entries(riepilogo)
-   .forEach(function([nome,valore]){
+Object.entries(riepilogo)
+.forEach(function([nome,valore]){
 
-      box.innerHTML += `
+box.innerHTML += `  
 
-      <div class="card">
+  <div class="card">  
 
-      <h3>
+  <h3>  
 
-      👷 ${nome}
+  👷 ${nome}  
 
-      </h3>
+  </h3>  
 
-      <small>
+  <small>  
 
-      Totale:
-      €${valore}
+  Totale:  
+  €${valore}  
 
-      </small>
+  </small>  
 
-      </div>
+  </div>  
 
-      `;
+  `;
 
-   });
+});
 
-   document
-   .getElementById(
-   "totaleCosti"
-   )
-   .innerText =
+document
+.getElementById(
+"totaleCosti"
+)
+.innerText =
 
-   "Totale: €" + totale;
+"Totale: €" + totale;
 
- });
+});
 
 };
+
